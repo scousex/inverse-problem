@@ -1,23 +1,34 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>Безымянная страница</title>
 <meta name="generator" content="WYSIWYG Web Builder 14 - http://www.wysiwygwebbuilder.com">
-<link href="gh.css" rel="stylesheet">
-<link href="calculations.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
+
 <body>
-<table style="position:absolute;left:71px;top:87px;width:1276px;height:220px;z-index:0;" id="Table1">
-<tr>
-<th class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> №</span></th>
-<th class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> Наименование продукта</span></th>
-<th class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> Себестоимость, руб.</span></th>
-<th class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> Цена, руб.</span></th>
-<th class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> Продано, шт.</span></th>
-<th class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> Выручка</span></th>
-<th class="cell3">&nbsp;</th>
-</tr>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название продукта</th>
+        <th scope="col">Описание продукта</th>
+        <th scope="col">Себестоимость</th>
+        <th scope="col">Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--<tr th:if="${products}">No products yet</tr>-->
+    <tr th:each="product: ${products}">
+        <td><span th:text="${productStat.index+1}"></span></td>
+        <td><span th:text="${product.productName}"/></td>
+        <td><span th:text="${product.productDescription}"/></td>
+        <td><span th:text="${product.productCost}"/></td>
+        <td><span th:text="${product.productPrice}"/><td/>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>

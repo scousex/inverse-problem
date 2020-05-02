@@ -20,6 +20,7 @@ public class Catalog {
             products.add(product);
     }
 
+    @Override
     public String toString(){
 
         String list = "#\t"+"Name\t"+"Cost\t"+"Price\n";

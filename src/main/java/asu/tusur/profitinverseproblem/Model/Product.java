@@ -46,4 +46,11 @@ public class Product {
         this.productName = productName;
     }
 
+   /* public String toString(){
+        return "productName: "+ getProductName()+"\n"
+                +"productDescription"+getProductDescription()+"\n"
+                +"productCost: "+ getProductCost() +"\n"
+                +"productPrice"+getProductPrice();
+    }
+*/
 }
