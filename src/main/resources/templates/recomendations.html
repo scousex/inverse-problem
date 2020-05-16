@@ -1,9 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<title>Информация по продажам</title>
-<meta name="generator" content="WYSIWYG Web Builder 14 - http://www.wysiwygwebbuilder.com">
+    <meta charset="utf-8">
+    <title>Рекомендации по товарам</title>
+    <meta name="generator" content="WYSIWYG Web Builder 14 - http://www.wysiwygwebbuilder.com">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
@@ -12,9 +12,9 @@
 <div class="container">
     <div name="header">
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Информация по продажам</a>
+            <a class="navbar-brand" href="#">Рекомендации по товарам</a>
             <div class="navbar navbar-expand-sm bg-ligh">
-                <a class="nav-item nav-link active" href="#">О системе<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="#">О системе</a>
                 <a class="nav-item nav-link" href="#">Расчёт рекомендаций</a>
                 <a class="nav-item nav-link" href="#">Контактная информация</a>
             </div>
@@ -22,33 +22,22 @@
     </div>
     <div class="row" name="forms">
         <div class="col-9">
-            <h2>
-                Чтобы получить рекомендации нажмите здесь.
-            </h2>
-            <form method="GET" action="/recomend" enctype="multipart/form-data">
-                <button type="submit" class="btn btn-primary" name="filename" value="test(2).xls">Рассчитать рекомендации</button>
-            </form>
-
-        </div>
-        <div class="col-9">
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Название продукта</th>
                     <th scope="col">Описание продукта</th>
-                    <th scope="col">Себестоимость</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Количество продаж</th>
-                    <th scope="col">Прибыль с товара</th>
+                    <th scope="col">Себестоимость исходная</th>
+                    <th scope="col">Цена исходная</th>
+                    <th scope="col">Количество продаж исходное</th>
+                    <th scope="col">Себестоимость рекомендуемая</th>
+                    <th scope="col">Цена рекомендуемая</th>
+                    <th scope="col">Количество продаж рекомендуемое</th>
+                    <th scope="col">Прибыль с товара по модели</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th colspan="6">
-                        <span>Продажи в период с 01.07.2016 по 09.06.2016</span>
-                    </th>
-                </tr>
                 <tr th:each="product: ${products}">
                     <td><span th:text="${productStat.index+1}"></span></td>
                     <td><span th:text="${product.productName}"/></td>
@@ -56,7 +45,10 @@
                     <td><span th:text="${product.productCost}"/></td>
                     <td><span th:text="${product.productPrice}"/></td>
                     <td><span th:text="${product.sells}"/></td>
-                    <td><span th:text="${product.profit}"/></td>
+                    <td><span th:text="${product.productCostRecom}"/></td>
+                    <td><span th:text="${product.productPriceRecom}"/></td>
+                    <td><span th:text="${product.sellsRecom}"/></td>
+                    <td><span th:text="${product.profitRecom}"/></td>
                 </tr>
                 </tbody>
             </table>

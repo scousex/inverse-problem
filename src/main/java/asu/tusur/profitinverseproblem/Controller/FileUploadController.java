@@ -48,9 +48,21 @@ public class FileUploadController {
         }catch (Exception e){
             System.out.println("Ошибка при обработке файла: "+e.getMessage());
         }
+        return redirectView;
+    }
 
-
-
+    @GetMapping("/recomend")
+    public RedirectView recomend(@RequestParam("filename") String filename,RedirectAttributes redirectAttributes){
+        RedirectView redirectView = new RedirectView("/recomendations.html",true);
+        try{
+            CostFileProcessing costFileProcessor = new CostFileProcessing();
+            Catalog catalog = new Catalog();
+            catalog.setProducts(costFileProcessor.getProducts(filename));
+            System.out.println(catalog.toString());
+            redirectAttributes.addFlashAttribute("products",catalog.getProducts());
+        }catch (Exception e){
+            System.out.println("Ошибка при обработке файла: "+e.getMessage());
+        }
         return redirectView;
     }
 }

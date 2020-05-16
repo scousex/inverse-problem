@@ -10,4 +10,8 @@ public class FragmentController {
     public String getCalculations(){
         return "/calculations.html";
     }
+    @GetMapping("/recomendations.html")
+    public String getRecomendations(){
+        return "/recomendations.html";
+    }
 }
