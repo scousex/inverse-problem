@@ -14,7 +14,6 @@ public class MainController {
 
     @GetMapping(value = "/")
     public String main(Model model){
-
         model.addAttribute("authorization",authorization);
         model.addAttribute("solve","давайте решать вашу задачу" );
         model.addAttribute("username","username");

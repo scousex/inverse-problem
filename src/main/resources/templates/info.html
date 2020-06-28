@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Информация о сайте</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div name="header">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">Информация о сайте</a>
+            <div class="navbar navbar-expand-sm bg-ligh">
+                <a class="nav-item nav-link active" href="info.html">О системе<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="calculations.html">Расчёт рекомендаций</a>
+                <a class="nav-item nav-link" href="authors.html">Контактная информация</a>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <h1>
+                Цель
+            </h1>
+            <p class="text-break">
+                Целью сайта является предоставление рекомендаций по увеличению прибыли на установленное значение путём решения обратной задачи формирования прибыли.
+            </p>
+        </div>
+        <div class="col-9">
+            <h1>
+                Об обратных вычислениях
+            </h1>
+            <p class="text-break">
+                В простейшем понимании решение обратных задач – восстановление исходных данных по результату. Например, восстановление формы Земли по её тени на луне Аристотелем. Каждый человек ежедневно решает тысячи обратных задач, даже не подозревая об этом: глаз человека улавливает только определенное количество точек объекта, а полную картину на основании этих точек создаёт мозг.
+            </p>
+            <p class="text-break">
+                Обратную задачу формирования прибыли предприятия можно сформулировать так:
+                <br/><b>«Каким образом необходимо изменить количество, себестоимость и цену продаваемого товара, чтобы прибыль изменилась на N%?».</b>
+            </p>
+            <p class="text-break">
+                Для решения обратных задач используются методы обратных вычислений, нелинейного программирования, а также методы, разработанные путём модификации известных.
+                Решение обратных задач с помощью метода обратных вычислений – это получение точечных (для одной конкретной точки) значений приростов аргументов прямой функции на основании её задаваемого значения и дополнительной информации, поступающей от лица, принимающего решения. <br/>Дополнительной информацией могут быть:
+                <br/>–	знаки увеличения или уменьшения аргументов в качестве целевых установок (например, увеличить количество и уменьшить цену товара);
+                <br/>–	коэффициенты относительной важности (КОВ) аргументов – относительные оценки показателей от экспертов или лица, принимающего решения.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

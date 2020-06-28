@@ -12,21 +12,25 @@
 <div class="container">
     <div name="header">
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Информация по продажам</a>
+            <a class="navbar-brand" href="index.html">Информация по продажам</a>
             <div class="navbar navbar-expand-sm bg-ligh">
-                <a class="nav-item nav-link active" href="#">О системе<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Расчёт рекомендаций</a>
-                <a class="nav-item nav-link" href="#">Контактная информация</a>
+                <a class="nav-item nav-link active" href="info.html">О системе<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="calculations.html">Расчёт рекомендаций</a>
+                <a class="nav-item nav-link" href="authors.html">Контактная информация</a>
             </div>
         </nav>
     </div>
-    <div class="row" name="forms">
+    <div class="row" name="forms" th:if="${products}">
         <div class="col-9">
             <h2>
                 Чтобы получить рекомендации нажмите здесь.
             </h2>
-            <form method="GET" action="/recomend" enctype="multipart/form-data">
-                <button type="submit" class="btn btn-primary" name="filename" value="test(2).xls">Рассчитать рекомендации</button>
+            <form method="POST" action="/recomend"
+                  enctype="multipart/form-data">
+<!--                <input th:field="${products}" type="hidden"/>-->
+<!--                <input th:field="${goals}" type="hidden"/>-->
+                <button type="submit" class="btn btn-primary"
+                        name="filename" value="test(2).xls">Рассчитать рекомендации</button>
             </form>
 
         </div>
@@ -46,20 +50,102 @@
                 <tbody>
                 <tr>
                     <th colspan="6">
-                        <span>Продажи в период с 01.07.2016 по 09.06.2016</span>
+                        <span>Продажи в период с 01.06.2016 по 09.06.2016</span>
+                        <br/>
+                        <span >Суммарная прибыль по перечисленным продуктам: 1083,04 руб.</span>
+                        <div class="row">
+                            <span style="margin: auto">Целевое значение:</span>
+                            <input style="max-width: 80%" name="priceGoal" th:id="priceGoal">
+                        </div>
                     </th>
                 </tr>
                 <tr th:each="product: ${products}">
-                    <td><span th:text="${productStat.index+1}"></span></td>
-                    <td><span th:text="${product.productName}"/></td>
-                    <td><span th:text="${product.productDescription}"/></td>
-                    <td><span th:text="${product.productCost}"/></td>
-                    <td><span th:text="${product.productPrice}"/></td>
-                    <td><span th:text="${product.sells}"/></td>
-                    <td><span th:text="${product.profit}"/></td>
+                    <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${productStat.index+1}"></span></td>
+                    <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productName}"/>
+                        <div class="row">
+                            <span style="margin: auto">КОВ:</span>
+                            <input style="max-width: 50%; margin: auto" name="costCoef"  th:id="product+${productStat.index}"/>
+                        </div></td>
+                    <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productDescription}"/></td>
+                    <td><div>
+                        <span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productCost}"/>
+                        <div style="margin: 5px"
+                             class="btn-group btn-group-sm"  role="group" aria-label="First group" th:radiogroup="costPM+${productStat.index}">
+                            <label style="font-weigh: bold; text-orientation: upright;" th:for="plus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="plus+${productStat.index}">+
+                            </label>
+                            <label style="font-weigh: bold; text-orientation: upright;" th:for="minus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="minus+${productStat.index}">-
+                            </label>
+                        </div>
+                        <div class="row">
+                            <span style="margin: auto">КОВ:</span>
+                            <input style="max-width: 50%; margin: auto" name="costCoef" th:value="*{goals[__${productStat.index}__].cost}" th:id="costCoef+${productStat.index}"/>
+                        </div>
+                    </div></td>
+                    <td><div class="container">
+                        <span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productPrice}"/>
+                        <div style="margin: 5px"
+                             class="btn-group btn-group-sm"  role="group" aria-label="First group" th:radiogroup="pricePM+${productStat.index}">
+                            <label style="font-weight: bold; text-orientation: upright;" th:for="plus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="plus+${productStat.index}">+
+                            </label>
+                            <label style="font-weight: bold; text-orientation: upright;" th:for="minus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="minus+${productStat.index}">-
+                            </label>
+                        </div>
+                        <div class="row">
+                            <span style="margin: auto">КОВ:</span>
+                            <input style="max-width: 50%; margin: auto" name="priceCoef" th:value="*{goals[__${productStat.index}__].price}" th:id="priceCoef+${productStat.index}"/>
+                        </div>
+                    </div></td>
+                    <td><div class="container">
+                        <span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.sells}"/>
+                        <div style="margin: 5px"
+                             class="btn-group btn-group-sm"  role="group" aria-label="First group" th:radiogroup="sellsPM+${productStat.index}">
+                            <label style="font-weight: bold; text-orientation: upright;" th:for="plus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="plus+${productStat.index}">+
+                            </label>
+                            <label style="font-weight: bold; text-orientation: upright;" th:for="minus+${productStat.index}" class="btn btn-secondary">
+                                <input type="radio" th:id="minus+${productStat.index}">-
+                            </label>
+                        </div>
+                        <div class="row">
+                           <span style="margin: auto">КОВ:</span>
+                            <input style="max-width: 50%; margin: auto" name="sellsCoef" th:value="*{goals[__${productStat.index}__].sells}" th:id="sellsCoef+${productStat.index}">
+                        </div>
+                    </div></td>
+                    <td><div class="container">
+                        <span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.profit}"/>
+<!--                        <div class="row">-->
+<!--                           <span style="margin: auto">Целевое значение:</span>-->
+<!--                            <input style="max-width: 80%" name="priceGoal" th:value="*{goals[__${productStat.index}__].price}" th:id="priceGoal+${productStat.index}">-->
+<!--                        </div>-->
+                    </div></td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div th:unless="${products}">
+        <div class="row" name="forms">
+            <div class="col-9">
+                <div class="alert alert-primary" role="alert">
+                    Данные ещё не получены, пожалуйста, загрузите файл с данными о продажах.
+                </div>
+            </div>
+            <div class="col-9">
+                <form method="POST" action="/upload" enctype="multipart/form-data">
+                    <div class="form-group" >
+                        <label for="exampleFormControlFile1">Выберите файл со своего компьютера</label>
+                        <input name="file" type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                    <button type="submit" class="btn btn-primary" >Загрузить</button>
+                </form>
+                <p>
+                    После загрузки файла Вы увидите страницу с данными, полученными из него.
+                </p>
+            </div>
         </div>
     </div>
 </div>

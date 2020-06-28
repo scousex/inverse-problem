@@ -2,31 +2,37 @@ package asu.tusur.profitinverseproblem.Model;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Product {
    // long productID;
     String productName;
     String productDescription;
-    double productCost;
-    double productPrice;
+    Double productCost;
+    Double productPrice;
     int sells;
-    BigDecimal profit;
-    double productCostRecom;
-    double productPriceRecom;
+    Double profit;
+    BigDecimal productCostRecom;
+    BigDecimal productPriceRecom;
     int sellsRecom;
     BigDecimal profitRecom;
 
-    public Product(String productName, double productCost, double productPrice) {
+    public Product(String productName, Double productCost, Double productPrice) {
         this.productName = productName;
         this.productCost = productCost;
         this.productPrice = productPrice;
-        this.sells = (int) productCost + 15;
-        this.profit = BigDecimal.valueOf(sells*productPrice - sells*productCost);
-        this.productCostRecom = this.productCost + (this.productCost-productPrice)/5;
-        this.productPriceRecom = this.productPrice + (this.productCost-productPrice)/3;
-        this.sellsRecom = this.sells + (int)(this.sells - Math.abs(Math.sqrt(sells)));
-        this.profitRecom = BigDecimal.valueOf(sellsRecom*productPriceRecom - sellsRecom*productCostRecom);
-
+        this.sells = productCost.intValue() + 15;
+        this.profit = (sells*productPrice - sells*productCost);
+        this.productCostRecom = BigDecimal
+                .valueOf(0.0)
+                .setScale(2, RoundingMode.CEILING);
+        this.productPriceRecom = BigDecimal
+                .valueOf(0.0)
+                .setScale(2,RoundingMode.CEILING);
+        this.sellsRecom = 0;
+        this.profitRecom =BigDecimal
+                .valueOf(0.0)
+                .setScale(2, RoundingMode.CEILING);
 
     }
     /* getters and setters */
@@ -38,19 +44,19 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public double getProductCost() {
+    public Double getProductCost() {
         return productCost;
     }
 
-    public void setProductCost(double productCost) {
+    public void setProductCost(Double productCost) {
         this.productCost = productCost;
     }
 
-    public double getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -66,15 +72,15 @@ public class Product {
         return sells;
     }
 
-    public BigDecimal getProfit() {
+    public Double getProfit() {
         return profit;
     }
 
-    public double getProductCostRecom() {
+    public BigDecimal getProductCostRecom() {
         return productCostRecom;
     }
 
-    public double getProductPriceRecom() {
+    public BigDecimal getProductPriceRecom() {
         return productPriceRecom;
     }
 

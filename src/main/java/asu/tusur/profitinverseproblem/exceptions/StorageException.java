@@ -1,4 +1,4 @@
-package asu.tusur.profitinverseproblem.Service;
+package asu.tusur.profitinverseproblem.exceptions;
 
 public class StorageException extends RuntimeException {
 

@@ -1,5 +1,6 @@
 package asu.tusur.profitinverseproblem.Model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Catalog {
@@ -33,5 +34,13 @@ public class Catalog {
         }
 
         return list;
+    }
+
+    public BigDecimal getProfit(){
+        BigDecimal profit = BigDecimal.valueOf(0);
+        for (Product product:products) {
+            profit.add(BigDecimal.valueOf(product.getProfit()));
+        }
+        return profit;
     }
 }

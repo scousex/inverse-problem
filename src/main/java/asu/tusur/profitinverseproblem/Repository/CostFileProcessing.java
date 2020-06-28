@@ -10,6 +10,9 @@ import org.apache.poi.ss.usermodel.Row;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,8 +47,8 @@ public class CostFileProcessing {
 
                 if (nameCell != null && costCell != null && priceCell != null) {
                     Product product = new Product(nameCell.getStringCellValue(),
-                            costCell.getNumericCellValue(),
-                            priceCell.getNumericCellValue());
+                            new Double(costCell.getNumericCellValue()),
+                            new Double(priceCell.getNumericCellValue()));
                     if (descripionCell != null) product.setProductDescription(descripionCell.getStringCellValue());
                     productList.add(product);
                 }
