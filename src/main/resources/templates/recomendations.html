@@ -15,7 +15,7 @@
             <a class="navbar-brand" href="#">Рекомендации по товарам</a>
             <div class="navbar navbar-expand-sm bg-ligh">
                 <a class="nav-item nav-link active" href="info.html">О системе<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="calculations.html">Расчёт рекомендаций</a>
+                <a class="nav-item nav-link" href="calculations.html">Получение рекомендаций</a>
                 <a class="nav-item nav-link" href="authors.html">Контактная информация</a>
             </div>
         </nav>
@@ -23,6 +23,20 @@
     <div class="row" name="forms">
         <div class="col-9">
             <table class="table table-bordered">
+                <tr>
+                    <th colspan="6">
+                        <div class="row-9" style="justify-content: right">
+                            <span>Целевая прибыль</span>
+                            <br/>
+                            <span th:text="${profit}"></span>
+                        </div>
+                        <div class="row-9" style="justify-content: right">
+                            <span>Прибыль по рекомендациям</span>
+                            <br/>
+                            <span >1195.75 руб.</span>
+                        </div>
+                    </th>
+                </tr>
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -34,7 +48,7 @@
                     <th scope="col">Себестоимость рекомендуемая</th>
                     <th scope="col">Цена рекомендуемая</th>
                     <th scope="col">Количество продаж рекомендуемое</th>
-                    <th scope="col">Прибыль с товара по модели</th>
+                    <th scope="col">Прибыль от продажи товара по модели</th>
                 </tr>
                 </thead>
                 <tbody>

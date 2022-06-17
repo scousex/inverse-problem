@@ -1,5 +1,7 @@
 package asu.tusur.profitinverseproblem.Model;
 
+import java.math.BigDecimal;
+
 public class Maths {
 
     public static class ProfitFunction{
@@ -16,12 +18,12 @@ public class Maths {
          * @return прибыль от продажи кол-ва товара
          */
         public static Double calculate(Double a, Double b, Double c,
-                        int K, Double C, Double S, Double x, Double deltaP){
-            return  ((K*(x-((b*x)/a)))+(((c*x)/a)*(C-S))+(((c*x)/a)*(x-((b*x)/a))))-deltaP;
+                        Double K, Double C, Double S, Double x, BigDecimal deltaP){
+            return  ((K*(x-((b*x)/a)))+(((c*x)/a)*(C-S))+(((c*x)/a)*(x-((b*x)/a))))-deltaP.doubleValue();
         }
 
         public static Double dif(Double a, Double b, Double c,
-                                 int K, Double C, Double S, Double x){
+                                 Double K, Double C, Double S, Double x){
             return ((((b/a)-1)*(-(K+((c*x)/a))))-((c*(S-x-C+((b*x)/a)))/a));
         }
 
@@ -34,7 +36,7 @@ public class Maths {
         private final static double e = 0.001;
 
         public static double minimize(double x0, Double a, Double b, Double c,
-                               int K, Double C, Double S, Double deltaP){
+                                      Double K, Double C, Double S, BigDecimal deltaP){
             double x1 = x0 - (ProfitFunction.calculate(a,b,c,K,C,S,x0,deltaP)
                                 /ProfitFunction.dif(a,b,c,K,C,S,x0));
             double p = ProfitFunction.calculate(a,b,c,K,C,S,x0,deltaP);

@@ -1,12 +1,14 @@
 package asu.tusur.profitinverseproblem.Model;
 
+import java.math.BigDecimal;
+
 public class Goals {
     Double cost;
     Double price;
     Double sells;
-    Double profit;
+    BigDecimal profit;
 
-    public Goals(Double cost, Double price, Double sells, Double profit) {
+    public Goals(Double cost, Double price, Double sells, BigDecimal profit) {
         this.cost = cost;
         this.price = price;
         this.sells = sells;
@@ -40,11 +42,11 @@ public class Goals {
         this.sells = sells;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
 
-    public void setProfit(Double profit) {
+    public void setProfit(BigDecimal profit) {
         this.profit = profit;
     }
 }

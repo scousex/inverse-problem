@@ -1,6 +1,7 @@
 package asu.tusur.profitinverseproblem.Model;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 
 public class Catalog {
@@ -37,10 +38,12 @@ public class Catalog {
     }
 
     public BigDecimal getProfit(){
-        BigDecimal profit = BigDecimal.valueOf(0);
+        BigDecimal profit;
+        Double p = 0.0;
         for (Product product:products) {
-            profit.add(BigDecimal.valueOf(product.getProfit()));
+            p +=product.getProfit();
         }
-        return profit;
+        profit = new BigDecimal(p,MathContext.DECIMAL32);
+        return new BigDecimal(p,MathContext.DECIMAL32).setScale(2);
     }
 }

@@ -2,21 +2,18 @@ package asu.tusur.profitinverseproblem.Controller;
 
 import asu.tusur.profitinverseproblem.Model.*;
 import asu.tusur.profitinverseproblem.Repository.CostFileProcessing;
-import asu.tusur.profitinverseproblem.Service.StorageService;
+import asu.tusur.profitinverseproblem.Repository.StorageService;
 import asu.tusur.profitinverseproblem.exceptions.CalculateException;
 import asu.tusur.profitinverseproblem.exceptions.StorageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.File;
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,21 +68,31 @@ public class FileUploadController {
         RedirectView redirectView = new RedirectView("/recomendations.html",true);
         try{
             System.out.println("FIlename: " + filename);
-            List<Goals> goals = new ArrayList<>();
-            goals.add(new Goals(0.2,0.7,0.1,500.00));
-            goals.add(new Goals(0.2,0.6,0.2,300.00));
-            goals.add(new Goals(0.3,0.5,0.2,400.00));
+
 
             CostFileProcessing costFileProcessor = new CostFileProcessing();
             List<Product> products = (costFileProcessor.getProducts(filename));
-            List<Recomendation> recomendations = new ArrayList<>();
-            for(int i = 0; i<products.size();i++){
-                recomendations.add(new Recomendation(products.get(i).getProductName(),
-                        products.get(i).getProductCost(),
-                        products.get(i).getProductPrice(),
-                        goals.get(i)));
+            Catalog catalog = new Catalog();
+            catalog.setProducts(products);
+            List<Goals> goals = new ArrayList<>();
+            goals.add(new Goals(0.2,0.7,0.1,catalog.getProfit().add(BigDecimal.valueOf(1200*0.3))));
+            goals.add(new Goals(0.2,0.6,0.2,catalog.getProfit().add(BigDecimal.valueOf(1200*0.3))));
+            goals.add(new Goals(0.3,0.5,0.2,catalog.getProfit().add(BigDecimal.valueOf(1200*0.4))));
+            String profit = ""+ catalog.getProfit();
+            List<Recommendation> recommendations = new ArrayList<>();
+            BigDecimal p = BigDecimal.valueOf(0.0);
+            for (Recommendation recomend: recommendations) {
+                p.add(recomend.getProfitRecom());
             }
-            redirectAttributes.addFlashAttribute("products",recomendations);
+            for(int i = 0; i<products.size();i++){
+                recommendations.add(new Recommendation(products.get(i).getProductName(),
+                                                       products.get(i).getProductCost(),
+                                                       products.get(i).getProductPrice(),
+                                                       goals.get(i)));
+            }
+            redirectAttributes.addFlashAttribute("products", recommendations);
+            redirectAttributes.addFlashAttribute("profit",profit);
+            redirectAttributes.addFlashAttribute("recProfit",p);
         }catch (Exception e){
             System.out.println("Ошибка при обработке файла: "+e.getMessage());
             throw new StorageException(e.getMessage());

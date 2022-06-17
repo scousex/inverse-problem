@@ -15,7 +15,7 @@
             <a class="navbar-brand" href="index.html">Информация по продажам</a>
             <div class="navbar navbar-expand-sm bg-ligh">
                 <a class="nav-item nav-link active" href="info.html">О системе<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="calculations.html">Расчёт рекомендаций</a>
+                <a class="nav-item nav-link" href="calculations.html">Получение рекомендаций</a>
                 <a class="nav-item nav-link" href="authors.html">Контактная информация</a>
             </div>
         </nav>
@@ -30,7 +30,7 @@
 <!--                <input th:field="${products}" type="hidden"/>-->
 <!--                <input th:field="${goals}" type="hidden"/>-->
                 <button type="submit" class="btn btn-primary"
-                        name="filename" value="test(2).xls">Рассчитать рекомендации</button>
+                        name="filename" value="test(2).xls">Получить рекомендации</button>
             </form>
 
         </div>
@@ -44,7 +44,7 @@
                     <th scope="col">Себестоимость</th>
                     <th scope="col">Цена</th>
                     <th scope="col">Количество продаж</th>
-                    <th scope="col">Прибыль с товара</th>
+                    <th scope="col">Прибыль от продажи товара</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,8 +52,8 @@
                     <th colspan="6">
                         <span>Продажи в период с 01.06.2016 по 09.06.2016</span>
                         <br/>
-                        <span >Суммарная прибыль по перечисленным продуктам: 1083,04 руб.</span>
-                        <div class="row">
+                        <span th:text="${profit}"></span>
+                        <div class="row-9" style="justify-content: right">
                             <span style="margin: auto">Целевое значение:</span>
                             <input style="max-width: 80%" name="priceGoal" th:id="priceGoal">
                         </div>
