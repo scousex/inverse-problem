@@ -21,19 +21,16 @@
         </nav>
     </div>
     <div class="row" name="forms" th:if="${products}">
-        <div class="col-9">
-            <h2>
-                Чтобы получить рекомендации нажмите здесь.
-            </h2>
-            <form method="POST" action="/recomend"
-                  enctype="multipart/form-data">
-<!--                <input th:field="${products}" type="hidden"/>-->
-<!--                <input th:field="${goals}" type="hidden"/>-->
-                <button type="submit" class="btn btn-primary"
-                        name="filename" value="test(2).xls">Рассчитать рекомендации</button>
-            </form>
+        <h2>
+            Чтобы получить рекомендации нажмите здесь.
+        </h2>
+        <form method="POST" action="/recomend"
+              enctype="multipart/form-data">
+            <!--                <input th:field="${products}" type="hidden"/>-->
+            <!--                <input th:field="${goals}" type="hidden"/>-->
+<!--            <button type="submit" class="btn btn-primary"-->
+<!--                    name="filename" value="test(2).xls">Рассчитать рекомендации</button>-->
 
-        </div>
         <div class="col-9">
             <table class="table table-bordered">
                 <thead>
@@ -126,6 +123,7 @@
                 </tbody>
             </table>
         </div>
+        </form>
     </div>
     <div th:unless="${products}">
         <div class="row" name="forms">

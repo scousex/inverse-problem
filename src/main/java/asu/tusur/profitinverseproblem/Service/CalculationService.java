@@ -15,19 +15,22 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CalculationService {
+
     private final StorageService storageService;
     private final CostFileProcessing costFileProcessor;
 
-    public List<Recommendation> calculateRecommendations(String filename) throws CalculateException, Exception {
-        List<Product> products = (costFileProcessor.getProducts(filename));
+    public List<Recommendation> calculateRecommendations (List<Product> products, List<Goals> goals) throws
+            CalculateException, Exception {
         Catalog catalog = new Catalog();
         catalog.setProducts(products);
-        List<Goals> goals = new ArrayList<>();
-        goals.add(new Goals(0.2,0.7,0.1,catalog.getProfit().add(BigDecimal.valueOf(1200*0.3))));
-        goals.add(new Goals(0.2,0.6,0.2,catalog.getProfit().add(BigDecimal.valueOf(1200*0.3))));
-        goals.add(new Goals(0.3,0.5,0.2,catalog.getProfit().add(BigDecimal.valueOf(1200*0.4))));
+//        goals.add(
+//                new Goals(0.2, 0.7, 0.1, catalog.getProfit().add(BigDecimal.valueOf(1200 * 0.3))));
+//        goals.add(
+//                new Goals(0.2, 0.6, 0.2, catalog.getProfit().add(BigDecimal.valueOf(1200 * 0.3))));
+//        goals.add(
+//                new Goals(0.3, 0.5, 0.2, catalog.getProfit().add(BigDecimal.valueOf(1200 * 0.4))));
         List<Recommendation> recommendations = new ArrayList<>();
-        for(int i = 0; i < products.size(); i++){
+        for (int i = 0; i < products.size(); i++) {
             try {
                 Product product = products.get(i);
                 Goals goal = goals.get(i);
@@ -39,26 +42,26 @@ public class CalculationService {
         return recommendations;
     }
 
-    private Recommendation getRecommendation(Product product, Goals goal){
+    private Recommendation getRecommendation (Product product, Goals goal) {
         double dif =
-                Maths.Newton.minimize(0, goal.getPrice(),
-                                      goal.getCost(),
+                Maths.Newton.minimize(0, goal.getPrice().doubleValue(),
+                                      goal.getCost().doubleValue(),
                                       goal.getSells(),
                                       product.getSells(),
-                                      product.getProductPrice(),
-                                      product.getProductCost(),
+                                      product.getProductPrice().doubleValue(),
+                                      product.getProductCost().doubleValue(),
                                       goal.getProfit().subtract(
-                                              BigDecimal.valueOf(product.getProfit())));
-        double recomPr = product.getProductPrice() + dif;
-        BigDecimal productPriceRecom = BigDecimal
-                .valueOf(recomPr)
+                                              BigDecimal.valueOf(
+                                                      product.getProfit())).doubleValue());
+        BigDecimal recomPr = product.getProductPrice().add(BigDecimal.valueOf(dif));
+        BigDecimal productPriceRecom = recomPr
                 .setScale(2, RoundingMode.CEILING);
         BigDecimal productCostRecom =
-                
-                BigDecimal.valueOf((dif * (goal.getCost() / goal.getPrice())))
+                (BigDecimal.valueOf(dif).multiply(goal.getCost().divide(goal.getPrice())))
                         .setScale(2, RoundingMode.CEILING)
-                        .add(BigDecimal.valueOf(product.getProductCost()));
-        double sellsRecom = BigDecimal.valueOf(dif * (goal.getSells() / goal.getPrice()))
+                        .add(product.getProductCost());
+        double sellsRecom = BigDecimal.valueOf(dif).multiply(
+                        BigDecimal.valueOf(goal.getSells()).divide(goal.getPrice()))
                 .add(BigDecimal.valueOf(product.getSells())).setScale(0,
                                                                       RoundingMode.HALF_UP).doubleValue();
         BigDecimal profitRecom =

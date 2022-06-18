@@ -12,10 +12,10 @@ import static java.lang.Math.abs;
 @AllArgsConstructor
 @Builder(builderMethodName = "builder")
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class Recommendation extends Product {
+public class Recommendation {
     private BigDecimal productCostRecom;
     private BigDecimal productPriceRecom;
     private Double sellsRecom;
     private BigDecimal profitRecom;
+    private long productId;
 }
