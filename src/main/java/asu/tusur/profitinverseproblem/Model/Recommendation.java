@@ -18,4 +18,26 @@ public class Recommendation {
     private Double sellsRecom;
     private BigDecimal profitRecom;
     private long productId;
+    private Product product;
+    private double deltaPrice;
+
+    public String getProductName(){
+        return product.getProductName();
+    }
+
+    public Double getSells(){
+        return product.getSells();
+    }
+
+    public BigDecimal getProductCost(){
+        return product.getProductCost();
+    }
+
+    public BigDecimal getProductPrice(){
+        return product.getProductPrice();
+    }
+
+    public String getProductDescription(){
+        return product.getProductDescription();
+    }
 }

@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Builder
-public class Goals {
+public class Goal {
+    private Double productCoef;
     private BigDecimal cost;
     private BigDecimal price;
     private Double sells;

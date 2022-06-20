@@ -25,7 +25,7 @@
             Чтобы получить рекомендации нажмите здесь.
         </h2>
         <form method="POST" action="/recomend"
-              enctype="multipart/form-data">
+              enctype="multipart/form-data" th:object="${wrapper}">
 <!--                            <input th:field="${products}" type="hidden"/>-->
 <!--                            <input th:field="${goals}" type="hidden"/>-->
             <button type="submit" class="btn btn-primary"
@@ -52,16 +52,17 @@
                         <span th:text="${profit}"></span>
                         <div class="row">
                             <span style="margin: auto">Целевое значение:</span>
-                            <input style="max-width: 80%" name="profitGoal" th:id="profitGoal">
+                            <input style="max-width: 80%" name="profitGoal" th:id="profitGoal" th:field="${wrapper.profitGoal}">
                         </div>
                     </th>
                 </tr>
-                <tr th:each="product: ${products}">
+                <tr th:each="product, productStat: *{products} ">
                     <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${productStat.index+1}"></span></td>
                     <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productName}"/>
                         <div class="row">
                             <span style="margin: auto">КОВ:</span>
-                            <input style="max-width: 50%; margin: auto" name="productCoef"  th:id="product+${productStat.index}"/>
+                            <input style="max-width: 50%; margin: auto"
+                                   th:field="*{goals[__${productStat.index}__].productCoef}"  th:id="product+${productStat.index}"/>
                         </div></td>
                     <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productDescription}"/></td>
                     <td><div>
@@ -77,7 +78,7 @@
                         </div>
                         <div class="row">
                             <span style="margin: auto">КОВ:</span>
-                            <input style="max-width: 50%; margin: auto" name="costCoef" th:value="*{goals[__${productStat.index}__].cost}" th:id="costCoef+${productStat.index}"/>
+                            <input style="max-width: 50%; margin: auto" name="costCoef" th:field="*{goals[__${productStat.index}__].cost}" th:id="costCoef+${productStat.index}"/>
                         </div>
                     </div></td>
                     <td><div class="container">
@@ -93,7 +94,7 @@
                         </div>
                         <div class="row">
                             <span style="margin: auto">КОВ:</span>
-                            <input style="max-width: 50%; margin: auto" name="priceCoef" th:value="*{goals[__${productStat.index}__].price}" th:id="priceCoef+${productStat.index}"/>
+                            <input style="max-width: 50%; margin: auto" name="priceCoef" th:field="*{goals[__${productStat.index}__].price}" th:id="priceCoef+${productStat.index}"/>
                         </div>
                     </div></td>
                     <td><div class="container">
@@ -109,7 +110,7 @@
                         </div>
                         <div class="row">
                            <span style="margin: auto">КОВ:</span>
-                            <input style="max-width: 50%; margin: auto" name="sellsCoef" th:value="*{goals[__${productStat.index}__].sells}" th:id="sellsCoef+${productStat.index}">
+                            <input style="max-width: 50%; margin: auto" name="sellsCoef" th:field="*{goals[__${productStat.index}__].sells}" th:id="sellsCoef+${productStat.index}">
                         </div>
                     </div></td>
                     <td><div class="container">
