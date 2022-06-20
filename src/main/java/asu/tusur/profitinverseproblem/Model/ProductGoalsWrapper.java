@@ -1,28 +1,18 @@
 package asu.tusur.profitinverseproblem.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductGoalsWrapper {
-    ArrayList<Product> products;
-    ArrayList<Goals> goals;
-
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList<Goals> getGoals() {
-        return goals;
-    }
-
-    public void setGoals(ArrayList<Goals> goals) {
-        this.goals = goals;
-    }
+    private ArrayList<Product> products;
+    private ArrayList<Goals> goals;
+    private BigDecimal profitGoal;
 }

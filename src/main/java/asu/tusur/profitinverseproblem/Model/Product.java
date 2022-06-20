@@ -3,6 +3,9 @@ package asu.tusur.profitinverseproblem.Model;
 
 import lombok.*;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 

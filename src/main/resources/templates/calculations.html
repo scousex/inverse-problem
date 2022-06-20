@@ -52,7 +52,7 @@
                         <span th:text="${profit}"></span>
                         <div class="row">
                             <span style="margin: auto">Целевое значение:</span>
-                            <input style="max-width: 80%" name="priceGoal" th:id="priceGoal">
+                            <input style="max-width: 80%" name="profitGoal" th:id="profitGoal">
                         </div>
                     </th>
                 </tr>
@@ -61,7 +61,7 @@
                     <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productName}"/>
                         <div class="row">
                             <span style="margin: auto">КОВ:</span>
-                            <input style="max-width: 50%; margin: auto" name="costCoef"  th:id="product+${productStat.index}"/>
+                            <input style="max-width: 50%; margin: auto" name="productCoef"  th:id="product+${productStat.index}"/>
                         </div></td>
                     <td><span style="font-weight: bold; font-family: 'Lucida Sans'" th:text="${product.productDescription}"/></td>
                     <td><div>
