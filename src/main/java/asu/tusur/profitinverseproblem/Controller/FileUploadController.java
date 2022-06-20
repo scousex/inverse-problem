@@ -48,7 +48,9 @@ public class FileUploadController {
             catalog.setProducts(costFileProcessor.getProducts(filename));
             List<Goals> goalsList = new ArrayList<Goals>(catalog.getProducts().size());
             catalog.getProducts().stream()
-                    .forEach(product -> {goalsList.add(new Goals());});
+                    .forEach(product -> {
+                        goalsList.add(new Goals());
+                    });
             System.out.println(catalog.toString());
            // redirectAttributes.addFlashAttribute("products",catalog.getProducts());\
 
@@ -71,13 +73,14 @@ public class FileUploadController {
         RedirectView redirectView = new RedirectView("/recomendations.html",true);
         try{
             System.out.println("FIlename: " + filename);
-            List<Goals> goals = new ArrayList<>();
+            List<Goals> goals = wrapper.getGoals();
 //            goals.add(new Goals(0.2,0.7,0.1,500.00));
 //            goals.add(new Goals(0.2,0.6,0.2,300.00));
 //            goals.add(new Goals(0.3,0.5,0.2,400.00));
 
             CostFileProcessing costFileProcessor = new CostFileProcessing();
-            List<Product> products = (costFileProcessor.getProducts(filename));
+            List<Product> products = wrapper.getProducts();
+//                    (costFileProcessor.getProducts(filename));
             List<Recommendation> recommendations =
                     calculationService.calculateRecommendations(products, goals);
 //            for(int i = 0; i<products.size();i++){

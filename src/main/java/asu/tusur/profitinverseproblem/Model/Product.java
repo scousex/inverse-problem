@@ -1,10 +1,7 @@
 package asu.tusur.profitinverseproblem.Model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,10 +18,18 @@ public class Product {
     private BigDecimal productCost;
     private BigDecimal productPrice;
     private Double sells;
+    @Getter(value = AccessLevel.PRIVATE)
     private Double profit;
     private BigDecimal productCostRecom;
     private BigDecimal productPriceRecom;
     private Double sellsRecom;
     private BigDecimal profitRecom;
+
+
+
+    public Double getProfit(){
+       return sells * (productPrice.subtract(productCost).doubleValue());
+    }
+
 
 }

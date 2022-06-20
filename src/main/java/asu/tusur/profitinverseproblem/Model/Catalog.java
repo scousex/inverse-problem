@@ -24,23 +24,29 @@ public class Catalog {
     @Override
     public String toString(){
 
-        String list = "#\t"+"Name\t"+"Cost\t"+"Price\n";
+        String list = "#\t"+"Name\t"+"Cost\t"+"Price\t"+"Sells\t"+"\n";
         int num = 0;
 
         for (Product product: products
              ) {
             list += (++num) +" " + product.getProductName() + " " +
-                    product.getProductCost() + " " + product.getProductPrice() + "\n";
+                    product.getProductCost() + " " + product.getProductPrice() + " " +
+                    +product.getSells() + "\n";
         }
 
         return list;
     }
 
     public BigDecimal getProfit(){
-        BigDecimal profit = BigDecimal.valueOf(0);
-        for (Product product:products) {
-            profit.add(BigDecimal.valueOf(product.getProfit()));
-        }
-        return profit;
+//        BigDecimal profit = BigDecimal.valueOf(0);
+        return products.parallelStream()
+                .map(Product::getProfit)
+                .reduce((Double::sum))
+                .map(BigDecimal::valueOf)
+                .orElse(BigDecimal.ZERO);
+//        for (Product product:products) {
+//           profit = profit.add(BigDecimal.valueOf(product.getProfit()));
+//        }
+//        return profit;
     }
 }
