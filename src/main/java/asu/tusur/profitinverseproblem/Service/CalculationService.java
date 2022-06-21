@@ -43,7 +43,7 @@ public class CalculationService {
                 this.calculatePriceGoal(goal, product, catalog.getProfit(), targetProfit);
                 recommendations.add(getRecommendation(product, goal));
                 this.roundingSells(recommendations, goals);
-//                this.minimizeRoundedProfits(recommendations, goals);
+                this.minimizeRoundedProfits(recommendations, goals);
             } catch (Exception e) {
                 throw new CalculateException("Ошибка при расчёте рекомендаций");
             }
@@ -134,19 +134,21 @@ public class CalculationService {
     }
 
     private void minimizeRoundedProfit (Recommendation rec, Goal goal) {
-        double roundedDeltaPrice = Maths.Newton.minimizeRoundedProfit(rec.getDeltaPrice(),
+        double roundedDeltaPrice = Maths.Newton.minimizeRoundedProfit(0,
                                                                       rec.getSellsRecom().longValue(),
+                                                                      rec.getProductPriceRecom().doubleValue(),
+                                                                      rec.getProductCostRecom().doubleValue(),
                                                                       goal.getPrice().doubleValue(),
                                                                       goal.getCost().doubleValue(),
                                                                       goal.getProfit().doubleValue());
-        BigDecimal recomPr = rec.getProductPrice().add(BigDecimal.valueOf(roundedDeltaPrice));
+        BigDecimal recomPr = rec.getProductPriceRecom().add(BigDecimal.valueOf(roundedDeltaPrice));
         BigDecimal productPriceRecom = recomPr
                 .setScale(2, RoundingMode.CEILING);
         BigDecimal productCostRecom =
                 (BigDecimal.valueOf(roundedDeltaPrice).multiply(
                         goal.getCost().divide(goal.getPrice(), RoundingMode.HALF_UP)))
                         .setScale(2, RoundingMode.CEILING)
-                        .add(rec.getProductCost());
+                        .add(rec.getProductCostRecom());
         BigDecimal profitRecom =
                 (productPriceRecom
                         .multiply(BigDecimal.valueOf(rec.getSellsRecom()))

@@ -28,9 +28,10 @@ public class Maths {
             return (2 * c / a) * (1 - b / a);
         }
 
-        public static Double calculateRounding (long sells, Double deltaPrice, Double a, Double b,
+        public static Double calculateRounding (long sells, Double deltaPrice,
+                Double price, Double cost,  Double a, Double b,
                                                 Double targetProfit) {
-            return sells * (deltaPrice - (deltaPrice * (b / a))) - targetProfit;
+            return (sells * (price + deltaPrice - (cost + (deltaPrice * (b / a))))) - targetProfit;
         }
 
         public static Double difRounding (long sells, Double a, Double b) {
@@ -45,24 +46,26 @@ public class Maths {
                                                Double K, Double C, Double S, Double deltaP) {
             double x1 = x0 - (ProfitFunction.calculate(a, b, c, K, C, S, x0, deltaP)
                     / ProfitFunction.dif(a, b, c, K, C, S, x0));
-            double p = ProfitFunction.calculate(a, b, c, K, C, S, x0, deltaP);
+            double p = ProfitFunction.calculate(a, b, c, K, C, S, x1, deltaP);
             double dif = ProfitFunction.dif(a, b, c, K, C, S, x0);
-            if (Math.abs(ProfitFunction.calculate(a, b, c, K, C, S, x0, deltaP)) < e) {
+            if (Math.abs(ProfitFunction.calculate(a, b, c, K, C, S, x1, deltaP)) < e) {
 //                if(ProfitFunction.calculate(a,b,c,K,C,S,x1,deltaP)<0) return x0;
                 return x1;
             } else return minimizePriceAdd(x1, a, b, c, K, C, S, deltaP);
         }
 
-        public static double minimizeRoundedProfit (double x0, long sells, Double a,
+        public static double minimizeRoundedProfit (double x0, long sells,
+                                                    Double price, Double cost,
+                                                    Double a,
                                                     Double b, Double targetProfit) {
-            double x1 = x0 - (ProfitFunction.calculateRounding(sells, x0, a, b, targetProfit)
+            double x1 = x0 - (ProfitFunction.calculateRounding(sells, x0, price, cost, a, b, targetProfit)
                     / ProfitFunction.difRounding(sells, a, b));
-//            double p = ProfitFunction.calculate(a, b, c, K, C, S, x0, deltaP);
-//            double dif = ProfitFunction.dif(a, b, c, K, C, S, x0);
-            if (Math.abs(ProfitFunction.calculateRounding(sells, x0, a, b, targetProfit)) < e) {
+//            double p = ProfitFunction.calculateRounding(sells, x1, price, cost, a, b, targetProfit);
+//            double dif = ProfitFunction.difRounding(sells, a, b);
+            if (Math.abs(ProfitFunction.calculateRounding(sells, x1, price, cost, a, b, targetProfit)) < e) {
 //                if(ProfitFunction.calculate(a,b,c,K,C,S,x1,deltaP)<0) return x0;
                 return x1;
-            } else return minimizeRoundedProfit(x1, sells, a, b, targetProfit);
+            } else return minimizeRoundedProfit(x1, sells, price, cost, a, b, targetProfit);
         }
     }
 
